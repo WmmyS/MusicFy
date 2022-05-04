@@ -1,8 +1,8 @@
 {
-  "name": "app-musicfy",
+  "name": "app-pocket-music",
   "version": "0.0.1",
-  "description": "Music application",
-  "productName": "MusicFy",
+  "description": "Pocket Music",
+  "productName": "Pocket Music",
   "author": "WmmyS <wesleymarcosm@gmail.com>",
   "private": true,
   "scripts": {
