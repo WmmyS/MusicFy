@@ -1,53 +1,51 @@
 <template>
   <q-page class="container bg-grey-11" padding>
-    <p class="text-h4">Login de Usuário</p>
-    <div class="q-col-gutter-md">
-      <q-form ref="myForm"
+  <div class="q-col-gutter-md">
+    <p class="text-h5">Login de Usuário</p>
+    <q-form
       @submit="onSubmit"
       @reset="onReset"
       class="row q-col-gutter-md"
-
+    >
+      <q-input
+        outlined
+        rounded
+        clearable
+        clear-icon="cancel"
+        bg-color="grey-1"
+        color="orange-10"
+        label="Usuário"
+        class="col-md-12 col-sm-12 col-xs-12"
+        v-model="user"
+        hint="Insira seu usuário de login"
+        lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Usuário obrigatório']"
       >
-        <q-input
-          outlined
-          rounded
-          clearable
-          clear-icon="cancel"
-          bg-color="grey-1"
-          v-model= "form.user"
-          color="orange-10"
-          label="Usuário"
-          class="col-md-12 col-sm-12 col-xs-12"
-          :rules="[
-            value => value && value.length > 0 || 'Usuário obrigatório'
-          ]"
-          hint="Insira seu usuário de login"
-        >
-          <template v-slot:prepend>
+        <template v-slot:prepend>
             <q-icon name="account_circle" />
-          </template>
-        </q-input>
+        </template>
 
-        <q-input
+      </q-input>
+
+      <q-input
         outlined
         rounded
         bg-color="grey-1"
-        v-model="form.password"
+        v-model="password"
         color="orange-10"
         label="Senha"
         class="col-md-12 col-sm-12 col-xs-12"
-        :type="form.isPwd ? 'password' : 'text'"
-        :rules="[
-          value => value && value.length > 0 || 'Senha obrigatória'
-        ]"
+        :type="isPwd ? 'password' : 'text'"
         hint="Insira sua senha"
-
-        >
+        :rules="[
+          value => value && value.length > 0 || 'Senha obrigatória',
+        ]"
+      >
           <template v-slot:append>
             <q-icon
-              :name="form.isPwd ? 'visibility_off' : 'visibility'"
+              :name="isPwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
-              @click="form.isPwd = !form.isPwd"
+              @click="isPwd = !isPwd"
             />
           </template>
           <template v-slot:prepend>
@@ -55,8 +53,8 @@
           </template>
         </q-input>
 
-        <div>
-          <q-btn
+      <div>
+         <q-btn
           label="Login"
           type="submit"
           color="orange-10"
@@ -64,62 +62,63 @@
           rounded
           class= "q-ml-sm"
           />
-          <q-btn
+        <q-btn
           label="Reset"
           type="reset"
           color="orange-10"
           :size='"md"'
           rounded
           flat class="q-ml-sm" />
-        </div>
+      </div>
+    </q-form>
 
-      </q-form>
-    </div>
-
-      <p>{{ form.user }} </p>
-      <p>{{ form.password }}</p>
-
+  </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
-import { useQuasar } from  'quasar'
+import { useQuasar } from 'quasar'
+import { ref } from 'vue'
 
-export default ({
-  name: 'LoginPage',
+export default {
+  setup () {
+    const $q = useQuasar()
 
-  data() {
-    const $q = useQuasar();
+    const user = ref(null)
+    const password = ref(null)
+    const isPwd = ref(true)
 
     return {
-      form: {
-        user: '',
-        password: '',
-        isPwd: ref(true),
-      },
+      user,
+      password,
+      isPwd,
 
       onSubmit () {
-        $q.notify({
-          message: 'Login efetuado com sucesso',
-          color: 'positive',
-          icon: 'check_circle_outline',
+         if (user.value !== 'wesley' || password.value !== 'senha' ) {
+           $q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'warning',
+            message: 'Usuário ou senha inválida'
+          })
+        } else {
+          $q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Entrando'
         })
-        console.log('submit');
+        }
       },
 
-      onReset() {
-        console.log('Reset');
-      },
-
-      methods: {}
+      onReset () {
+        user.value = null
+        password.value = null
+        isPwd.value = true
+      }
     }
+  },
+  methods: {
   }
-
-
-
-
-
-})
-
+}
 </script>

@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Pocket Music
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Pocket Music v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
