@@ -1,4 +1,4 @@
-# MusicFy (app-musicfy)
+# PocketMusic (app-pocket-music)
 
 Music application
 
