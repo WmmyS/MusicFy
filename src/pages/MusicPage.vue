@@ -171,14 +171,21 @@
       </q-scroll-area>
     </q-drawer>
     <q-page-container>
-      <!-- <div class="q-pa-md">
+      <div class="q-pa-md">
         <q-video
           :ratio="16 / 9"
           src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0"
         />
-      </div> -->
+      </div>
       <q-table :data="musics"></q-table>
-
+      <div v-for="d in data" :key="d._id">
+        <div class="q-pa-md">
+          <q-video
+            :ratio="16 / 9"
+            :src="d.url.replaceAll('watch?v=', 'embed/')"
+          />
+        </div>
+      </div>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -272,7 +279,8 @@ export default {
       ],
     };
   },
-  mounted() {
+  async mounted() {
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
     this.loadData();
   },
 };
